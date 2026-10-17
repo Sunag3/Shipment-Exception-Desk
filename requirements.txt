@@ -1,0 +1,19 @@
+# LangChain (compatible set)
+langchain==0.3.25
+langchain-core==0.3.63
+langchain-openai==0.2.12
+langsmith==0.3.45
+
+# OpenAI (stay below 3.0 to avoid httpx2)
+openai==1.99.9
+
+# HTTP
+httpx==0.28.1
+
+# UI
+gradio==5.23.3
+
+# Utils
+python-dotenv==1.1.1
+pydantic==2.11.7
+pytest
