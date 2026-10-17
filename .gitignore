@@ -179,3 +179,18 @@ cython_debug/
 #  refer to https://docs.cursor.com/context/ignore-files
 .cursorignore
 .cursorindexingignore
+
+# MLflow local tracking directory
+mlruns/
+
+# Local MLflow SQLite database backend
+mlflow.db
+
+# MLflow artifacts directory (if stored locally)
+mlflow-artifacts/
+
+# MLflow local cache or config directories
+.mlflow/
+
+# MLArtifacts
+mlartifacts/

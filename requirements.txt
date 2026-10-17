@@ -17,3 +17,4 @@ gradio==5.23.3
 python-dotenv==1.1.1
 pydantic==2.11.7
 pytest
+mlflow>=2.14.0

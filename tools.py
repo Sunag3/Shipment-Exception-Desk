@@ -1,5 +1,7 @@
 import re
+import mlflow
 
+@mlflow.trace(name="calculate_delay_compensation")
 def calculate_delay_compensation(shipment_value: float, report_text: str) -> dict:
     """
     Calculates shipment delay compensation based on shipment value and incident report text.
@@ -48,7 +50,7 @@ def calculate_delay_compensation(shipment_value: float, report_text: str) -> dic
         "reason": f"Standard carrier delay of {delay_days} day(s) applied at {daily_rate * 100}% per day."
     }
 
-
+@mlflow.trace(name="calculate_damage_compensation")
 def calculate_damage_compensation(shipment_value: float, report_text: str) -> dict:
     """
     Calculates shipment damage compensation based on shipment value and damage report text.
@@ -101,7 +103,7 @@ def calculate_damage_compensation(shipment_value: float, report_text: str) -> di
         "reason": f"Damage classified as '{severity}' based on report wording, applying a {round(percentage * 100)}% compensation rate."
     }
 
-
+@mlflow.trace(name="calculate_lost_compensation")
 def calculate_lost_compensation(shipment_value: float, report_text: str) -> dict:
     """
     Calculates shipment compensation for a lost shipment based on shipment value and incident report text.
