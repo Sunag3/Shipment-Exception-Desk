@@ -1,0 +1,123 @@
+{
+    "family": "shipment_exception_desk",
+    "containerDefinitions": [
+        {
+            "name": "mlflow_server",
+            "image": "874927898291.dkr.ecr.us-east-1.amazonaws.com/shipment_exception_desk:latest",
+            "cpu": 0,
+            "portMappings": [
+                {
+                    "containerPort": 5000,
+                    "hostPort": 5000,
+                    "protocol": "tcp",
+                    "name": "mlflow_server-5000-tcp",
+                    "appProtocol": "http"
+                }
+            ],
+            "essential": true,
+            "command": [
+                "mlflow",
+                "server",
+                "--host",
+                "0.0.0.0",
+                "--port",
+                "5000",
+                "--backend-store-uri",
+                "sqlite:////mlflow/mlflow.db",
+                "--artifacts-destination",
+                "/mlflow/artifacts",
+                "--serve-artifacts",
+                "--allowed-hosts",
+                "*"
+            ],
+            "environment": [
+                {
+                    "name": "MLFLOW_SERVER_CORS_ALLOWED_ORIGINS",
+                    "value": "*"
+                },
+                {
+                    "name": "PYTHONUNBUFFERED",
+                    "value": "1"
+                },
+                {
+                    "name": "GIT_PYTHON_REFRESH",
+                    "value": "quiet"
+                },
+                {
+                    "name": "MLFLOW_SERVER_ALLOWED_HOSTS",
+                    "value": "*"
+                }
+            ],
+            "environmentFiles": [],
+            "mountPoints": [],
+            "volumesFrom": [],
+            "ulimits": [],
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-group": "/ecs/shipment_exception_desk",
+                    "awslogs-create-group": "true",
+                    "awslogs-region": "us-east-1",
+                    "awslogs-stream-prefix": "ecs"
+                },
+                "secretOptions": []
+            },
+            "systemControls": []
+        },
+        {
+            "name": "shipment_gradio_app",
+            "image": "874927898291.dkr.ecr.us-east-1.amazonaws.com/shipment_exception_desk:latest",
+            "cpu": 0,
+            "portMappings": [
+                {
+                    "containerPort": 7860,
+                    "hostPort": 7860,
+                    "protocol": "tcp",
+                    "name": "shipment_gradio_app-7860-tcp",
+                    "appProtocol": "http"
+                }
+            ],
+            "essential": false,
+            "environment": [
+                {
+                    "name": "GRADIO_SERVER_NAME",
+                    "value": "0.0.0.0"
+                },
+                {
+                    "name": "MLFLOW_TRACKING_URI",
+                    "value": "http://localhost:5000"
+                },
+                {
+                    "name": "OPENAI_API_KEY",
+                    "value": "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"
+                },
+                {
+                    "name": "PYTHONUNBUFFERED",
+                    "value": "1"
+                },
+                {
+                    "name": "GIT_PYTHON_REFRESH",
+                    "value": "quiet"
+                }
+            ],
+            "environmentFiles": [],
+            "mountPoints": [],
+            "volumesFrom": [],
+            "systemControls": []
+        }
+    ],
+    "executionRoleArn": "arn:aws:iam::874927898291:role/ecsTaskExecutionRole",
+    "networkMode": "awsvpc",
+    "volumes": [],
+    "placementConstraints": [],
+    "requiresCompatibilities": [
+        "FARGATE"
+    ],
+    "cpu": "1024",
+    "memory": "3072",
+    "runtimePlatform": {
+        "cpuArchitecture": "X86_64",
+        "operatingSystemFamily": "LINUX"
+    },
+    "enableFaultInjection": false
+}
