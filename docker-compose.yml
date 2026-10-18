@@ -1,26 +1,32 @@
-version: '3.8'
-
 services:
-  # Service 1: MLflow Tracking & Tracing Server
   mlflow-server:
-    build: .
+    image: 874927898291.dkr.ecr.us-east-1.amazonaws.com/shipment_exception_desk
     container_name: mlflow-server
-    command: mlflow server --host 0.0.0.0 --port 5000 --backend-store-uri sqlite:///mlflow.db
+    command: >
+      mlflow server
+      --host 0.0.0.0
+      --port 5000
+      --backend-store-uri sqlite:////mlflow/mlflow.db
+      --artifacts-destination /mlflow/artifacts
+      --serve-artifacts
+      --allowed-hosts "mlflow-server,mlflow-server:5000,localhost,localhost:5000,127.0.0.1,127.0.0.1:5000,*"
     ports:
       - "5000:5000"
     volumes:
       - mlflow_data:/mlflow
     restart: unless-stopped
 
-  # Service 2: Gradio Shipment Exception Desk Application
   shipment-desk:
-    build: .
+    image: 874927898291.dkr.ecr.us-east-1.amazonaws.com/shipment_exception_desk
     container_name: shipment-desk-app
     ports:
       - "7860:7860"
     environment:
+      - PYTHONUNBUFFERED=1
+      - GRADIO_SERVER_NAME=0.0.0.0
       - OPENAI_API_KEY=${OPENAI_API_KEY}
       - MLFLOW_TRACKING_URI=http://mlflow-server:5000
+      - GIT_PYTHON_REFRESH=quiet
     depends_on:
       - mlflow-server
     restart: unless-stopped
