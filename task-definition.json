@@ -89,7 +89,7 @@
                 },
                 {
                     "name": "OPENAI_API_KEY",
-                    "value": "${{ secrets.OPENAI_API_KEY }}"
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:874927898291:secret:prod/shipment_exception_desk/openai-5P7Yc9"
                 },
                 {
                     "name": "PYTHONUNBUFFERED",
