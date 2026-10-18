@@ -89,7 +89,7 @@
                 },
                 {
                     "name": "OPENAI_API_KEY",
-                    "value": "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"
+                    "value": "${{ secrets.OPENAI_API_KEY }}"
                 },
                 {
                     "name": "PYTHONUNBUFFERED",
