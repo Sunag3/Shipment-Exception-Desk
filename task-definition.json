@@ -88,16 +88,18 @@
                     "value": "http://localhost:5000"
                 },
                 {
-                    "name": "OPENAI_API_KEY",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-1:874927898291:secret:prod/shipment_exception_desk/openai-5P7Yc9"
-                },
-                {
                     "name": "PYTHONUNBUFFERED",
                     "value": "1"
                 },
                 {
                     "name": "GIT_PYTHON_REFRESH",
                     "value": "quiet"
+                }
+            ],
+            "secrets": [
+                {
+                    "name": "OPENAI_API_KEY",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:874927898291:secret:prod/shipment_exception_desk/openai-5P7Yc9"
                 }
             ],
             "environmentFiles": [],
@@ -118,6 +120,5 @@
     "runtimePlatform": {
         "cpuArchitecture": "X86_64",
         "operatingSystemFamily": "LINUX"
-    },
-    "enableFaultInjection": false
+    }
 }
